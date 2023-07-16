@@ -5,7 +5,7 @@ Zip is a C++-Wrapper around the [link](https://github.com/richgel999/miniz.git) 
 Zip is meant to be added as a submodule via Git and build via cmake. You can add it to your project like this:
 
 ```cmd
-git submodule add 
+git submodule add https://github.com/DirkChristianBecker/Zip.git
 ```
 
 Then add the project to your cmake build and link against your binary.
