@@ -40,7 +40,6 @@ int main(int argc, char** argv)
         std::cout << "Loaded a file into memory. It´s content is: " << std::endl << e.GetAsText() << std::endl;
     }
 
-
     Vector<Path> p;
     Vector<Path> dir;
     
