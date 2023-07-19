@@ -115,13 +115,22 @@ namespace Zip
 
 	Path Archive::ExtractToFile(ZipEntryMeta& e, const Path& destination)
 	{
-		auto parent_path = Path(e.Name).parent_path();	// Directory without file name.
-		auto file_name = Path(e.Name).filename();
-		auto dest = Path(destination);
-		dest /= parent_path;
-		/// Create the directories.
-		std::filesystem::create_directories(dest);
-		dest /= file_name;
+		std::filesystem::path dest = destination;
+		if (std::filesystem::is_directory(destination))
+		{
+			auto parent_path = Path(e.Name).parent_path();	// Directory without file name.
+			auto file_name = Path(e.Name).filename();
+			dest = Path(destination);
+			dest /= parent_path;
+			/// Create the directories.
+			std::filesystem::create_directories(dest);
+			dest /= file_name;
+		}
+		else
+		{
+			auto path = destination.parent_path();
+			std::filesystem::create_directories(path);
+		}
 		
 		if (e.IsDirectory)
 		{

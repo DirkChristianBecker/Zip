@@ -51,11 +51,11 @@ int main(int argc, char** argv)
 
         // Write it to a file. The target is the destination folder, the name of the file
         // is derrived from the name inside the Zip-Archive. This method will replicate
-        // the folder structure of the archive. If the will lives inside a folder in the
+        // the folder structure of the archive. If the file lives inside a folder in the
         // archive this folder will be created under the target folder on disk.
         auto final_dest = archive.ExtractToFile(e, target);
 
-        // The location of the extracted file is returned and it can be a directory as well. 
+        // The location of the extracted file is returned; it can be a directory as well. 
         if (std::filesystem::is_directory(final_dest))
         {
             dir.push_back(final_dest);
@@ -66,9 +66,20 @@ int main(int argc, char** argv)
             p.push_back(final_dest);
             std::cout << "Wrote '" << e.Name << "' to '" << p[p.size() - 1].string() << "'." << std::endl;
         }
-    } 
+    }
 
-    std::cout << "Press any enter to continue." << std::endl;
+    // Write a file to disk and rename it be giving it a new name.
+    // This will not recreate the folder structure inside the Zip, however all folders that
+    // do not exist within the destination path will be created.
+    auto single_entry = archive.GetEntry(2);
+    auto t = target / "Renamed.txt"; 
+    archive.ExtractToFile(single_entry, t);
+    if(!std::filesystem::exists(t))
+    {
+        throw new std::exception();
+    }
+
+    std::cout << "Press enter to continue." << std::endl;
     std::getchar();
 
     // First remove all files

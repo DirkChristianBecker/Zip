@@ -73,8 +73,9 @@ namespace Zip
 		void* ExtractToMemory(ZipEntryMeta& e);
 
 		/// <summary>
-		/// Extracts a file to the given location copying the directory structure of the archive. All sub-directories below the
-		/// destination will be created.
+		/// Extracts a file to the given location copying the directory structure of the archive, if the given path is a directory.
+		/// If the given destination is a file name, the file will be extracted to this path without recreating the folder
+		/// structure inside the archive.
 		///  
 		/// </summary>
 		/// <param name="e"></param>
